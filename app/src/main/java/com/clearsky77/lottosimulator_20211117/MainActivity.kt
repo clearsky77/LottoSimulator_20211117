@@ -13,62 +13,62 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setupEvents()
-        setValue()
-    }
-
-    private fun setupEvents() {
-        btnBuyLotto.setOnClickListener {
-            // 로또 번호 6개 생성
-            makeLottoNumbers()
-            // 보너스 번호 생성
+            setContentView(R.layout.activity_main)
+            setupEvents()
+            setValues()
         }
-    }
-
-    private fun setValue() {
-        mLottoNumTxtList = arrayListOf(txtLottoNum1, txtLottoNum2, txtLottoNum3, txtLottoNum5, txtLottoNum6)
-
-        // 만들면서 바로 배치시키는 코드! arrayListOf
-        // ArrayList<TextView>() 하지 않고
-    }
-
-
-    fun makeLottoNumbers() {
-        // 기존에 번호 지우기
-        mWinLottoNumArr.clear()
-
-        // 6개 당첨 번호
-        for (i in 0 until 6) { // for (i in 0..4)
-            // 랜덤 숫자 추출 -> 목록에 추가
-            while (true) {
-                val randomNum = (Math.random() * 45 + 1).toInt()
-                Log.d("랜덤", randomNum.toString())
-
-                var isDuplOk = !mWinLottoNumArr.contains(randomNum)
-
-                if (isDuplOk) { // 중복이 아니면
-                    mWinLottoNumArr.add(randomNum)
-                    break
+        fun setupEvents() {
+            btnBuyLotto.setOnClickListener {
+//            로또 번호 6개 생성
+                makeLottoNumbers()
+//            보너스번호 생성
+            }
+        }
+        fun makeLottoNumbers() {
+//        기존에 번호가 있다면 전부 삭제.
+            mWinLottoNumArr.clear()
+//        6개의 당첨 번호 => 반복 횟수 명확 => for
+            for ( i  in  0 until 6) {
+//            랜덤 숫자 추출 -> (제대로 된 숫자라면) 목록에 추가
+                while (true) {
+                    val randomNum =  (Math.random() * 45 + 1).toInt()
+//                중복검사 : 당첨 숫자 목록에 내 숫자가 있는지?
+                    val isDuplOk = !mWinLottoNumArr.contains(randomNum)
+                    if (isDuplOk) {
+//                    숫자를 당첨 목록에 추가.
+                        mWinLottoNumArr.add(randomNum)
+                        break;
+                    }
                 }
             }
-            Log.d("숫자 확인", i.toString())
+//        ArrayList의 sort 기능 활용
+            mWinLottoNumArr.sort()
+
+//        당첨 번호 6개 확인
+
+            for ( i  in  0 until 6 ) {
+
+//            텍스트뷰[i]  =  당첨번호[i]
+                mLottoNumTxtList[i].text =  mWinLottoNumArr[i].toString()
+
+            }
 
         }
 
-        // 순서대로 정렬
-        mWinLottoNumArr.sort()
+        fun setValues() {
 
-        for (num in mWinLottoNumArr) {
-            Log.d("당첨번호", num.toString())
+            mLottoNumTxtList = arrayListOf( txtLottoNum1, txtLottoNum2, txtLottoNum3, txtLottoNum4, txtLottoNum5, txtLottoNum6 )
+
         }
 
-        for(i in 0 until 6){
-            mLottoNumTxtList[i].text = mWinLottoNumArr[i].toString()
-        }
+
+
+
+
+
+
+
+
 
 
     }
-
-
-}
