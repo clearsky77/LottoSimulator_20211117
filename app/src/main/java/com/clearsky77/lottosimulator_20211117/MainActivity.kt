@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,6 +15,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var mLottoNumTxtList : ArrayList<TextView>
     var mBonusNum = 0
     val mMyLottoNumArr = arrayListOf( 5, 17, 26, 30, 36, 42 )
+
+    var mUsedMoney = 0L
+    var mEarnedMoney = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,9 @@ class MainActivity : AppCompatActivity() {
     private fun checkLottoRank() {
         //        내 숫자 6개가 -> 당첨번호 6개중 몇개나 맞췄는가?
 
+        mUsedMoney += 1000
+
+
         var correctCount = 0
 
         for ( myNum  in  mMyLottoNumArr) {
@@ -52,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         when (correctCount) {
             6 -> {
                 Log.d("등수", "1등입니다!")
+                mEarnedMoney += 5000000000
             }
             5 -> {
 
@@ -59,22 +69,29 @@ class MainActivity : AppCompatActivity() {
 
                 if (mMyLottoNumArr.contains( mBonusNum )) {
                     Log.d("등수", "2등")
+
+                    mEarnedMoney += 50000000
                 }
                 else {
                     Log.d("등수", "3등")
+                    mEarnedMoney += 2000000
                 }
 
             }
             4 -> {
                 Log.d("등수", "4등")
+                mEarnedMoney += 50000
             }
             3 -> {
                 Log.d("등수", "5등")
+                mUsedMoney -= 5000
             }
             else -> {
                 Log.d("등수", "꽝")
             }
         }
+        txtUsedMoney.text = "${NumberFormat.getInstance(Locale.KOREA).format(mUsedMoney)}원"
+        txtEarnedMoney.text = "${NumberFormat.getInstance(Locale.KOREA).format(mEarnedMoney)}원"
     }
 
 
