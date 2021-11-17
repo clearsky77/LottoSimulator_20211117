@@ -3,11 +3,13 @@ package com.clearsky77.lottosimulator_20211117
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     val mWinLottoNumArr = ArrayList<Int>()
+    lateinit var mLottoNumTxtList : ArrayList<TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +27,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setValue() {
+        mLottoNumTxtList = arrayListOf(txtLottoNum1, txtLottoNum2, txtLottoNum3, txtLottoNum5, txtLottoNum6)
 
+        // 만들면서 바로 배치시키는 코드! arrayListOf
+        // ArrayList<TextView>() 하지 않고
     }
 
 
@@ -44,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (isDuplOk) { // 중복이 아니면
                     mWinLottoNumArr.add(randomNum)
-                    break;
+                    break
                 }
             }
             Log.d("숫자 확인", i.toString())
@@ -56,7 +61,10 @@ class MainActivity : AppCompatActivity() {
 
         for (num in mWinLottoNumArr) {
             Log.d("당첨번호", num.toString())
+        }
 
+        for(i in 0 until 6){
+            mLottoNumTxtList[i].text = mWinLottoNumArr[i].toString()
         }
 
 
