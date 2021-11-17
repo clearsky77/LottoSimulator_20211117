@@ -7,5 +7,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupEvents()
+        setValue()
+    }
+
+    private fun setupEvents() {
+
+    }
+
+    private fun setValue() {
+
     }
 }
