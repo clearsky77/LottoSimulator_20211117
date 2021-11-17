@@ -51,6 +51,9 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        // 순서대로 정렬
+        mWinLottoNumArr.sort()
+
         for (num in mWinLottoNumArr) {
             Log.d("당첨번호", num.toString())
 
